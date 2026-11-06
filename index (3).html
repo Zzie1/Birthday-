@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>A Little Late, A Little Lovely.</title>
+
+<!-- FONTS: these load from Google Fonts (needs internet). To add a font, add it to this link. -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400&amp;family=EB+Garamond:ital@0;1&amp;family=Lora:ital@0;1&amp;family=Playfair+Display:ital@0;1&amp;family=Pinyon+Script&amp;family=Great+Vibes&amp;family=Dancing+Script&amp;display=swap" rel="stylesheet">
+
+<!-- ==========================================================
+     1. YOUR SETTINGS  (the easy part to edit by hand)
+     Change the words between the quote marks / backticks.
+     POEM and FINAL MESSAGE: leave ONE EMPTY LINE between stanzas.
+     Or skip this and use the visual editor (the ✎ button).
+     ========================================================== -->
+<script id="settings">
+const SETTINGS = {
+  editMode: false,   // true = shows the ✎ editor button
+  // ---- WORDS ----
+  title: `A Little Late, A Little Lovely.`,
+  openingLine: `Some words for someone who deserves a little extra thought.`,
+  openButton: `Open your letter ♡`,
+  recipientName: `Gentle 😉`,
+  poemTitle: `A Little Late, But Written With a Little More Thought`,
+  poem: `I know Sunday came and went,
+With cakes, wishes and moments well spent.
+And though I'm a little late to say,
+Happy birthday to you, in my own little way.
+
+I thought I'd give you something that I know how to do,
+A few carefully chosen words, wrapped especially for you.
+Because some people deserve more than a simple wish,
+And you happen to be someone I'd love to celebrate here.
+
+There's something about the way you are,
+A certain sweetness that travels quite far.
+The ease with which you let conversations flow,
+Makes talking to you feel like somewhere I know.
+
+You make no complain about the little things,
+Yet somehow, your kindness has its own little wings.
+And I find myself smiling at the simplest exchange,
+Perhaps it's your sweetness, or the way you make things feel less strange.
+
+I won't say too much, some things are better left unsaid,
+And I wouldn't want these words to go to your head,
+But if a little admiration found its way into this rhyme,
+Well, that only means I'm rather good with words. 😂
+Let's just say, some people are lovely without even trying.
+
+So here's to another year of becoming,
+Of beautiful moments and dreams unfolding.
+May life be gentle, may laughter stay near,
+May your heart find reasons to smile throughout the year.
+
+And when you look back on this birthday someday,
+I hope these little lines bring a smile your way.
+Because even though my wishes arrived a little late,
+Some lovely thoughts, I believe, are always worth the wait.`,
+  lastButton: `One last thing...`,
+  finalMessage: `Happy birthday, once again.
+
+Stay sweet, stay lovely, and please don't lose that little something that makes you, you.
+
+Some people are simply a pleasure to know. ♡`,
+  signature: `Written with a little extra thought.`,
+  againButton: `Read it again ♡`,
+  // ---- COLOURS ----
+  cream: `#f6efe0`,
+  green: `#2f4a3a`,
+  sage: `#9caf98`,
+  gold: `#b99a5b`,
+  // ---- FONTS ----
+  serif: `Cormorant Garamond`,
+  script: `Pinyon Script`,
+  // ---- ANIMATIONS (true/false) ----
+  animations: true,
+  particles: true
+};
+</script>
+
+<!-- ==========================================================
+     2. LOOK AND FEEL (CSS)
+     ========================================================== -->
+<style>
+/* Colours and fonts come from SETTINGS above; these are just defaults */
+:root{
+  --cream:#f6efe0; --green:#2f4a3a; --sage:#9caf98; --gold:#b99a5b;
+  --serif:'Cormorant Garamond',Georgia,serif;
+  --script:'Pinyon Script',cursive;
+  --soft:color-mix(in srgb,var(--sage) 22%,var(--cream));   /* pale sage-cream for backgrounds */
+}
+*{box-sizing:border-box;margin:0}
+html{scroll-behavior:smooth}
+body{
+  font-family:var(--serif);color:var(--green);font-size:20px;line-height:1.6;
+  background:radial-gradient(ellipse at 50% 0%,var(--cream),var(--soft) 80%) fixed;
+  min-height:100dvh;overflow-x:hidden;
+}
+body[data-stage=intro]{overflow:hidden}
+button{font:inherit;cursor:pointer}
+
+/* --- Switch: show only the current screen --- */
+body[data-stage=intro] #letter{display:none}
+body[data-stage=letter] #intro{display:none}
+
+/* --- Floating specks --- */
+#specks{position:fixed;inset:0;pointer-events:none;z-index:0;overflow:hidden}
+.speck{position:absolute;bottom:-10px;border-radius:50%;background:var(--gold);opacity:0;
+  animation:rise linear infinite}
+@keyframes rise{0%{transform:translateY(0) translateX(0);opacity:0}15%{opacity:.5}
+  85%{opacity:.35}100%{transform:translateY(-110vh) translateX(24px);opacity:0}}
+
+/* --- Opening screen --- */
+#intro{position:fixed;inset:0;z-index:1;display:flex;flex-direction:column;align-items:center;
+  justify-content:center;gap:18px;padding:24px;text-align:center;transition:opacity .8s}
+#intro.leaving{opacity:0}
+#intro h1{font-family:var(--script);font-weight:400;font-size:clamp(40px,11vw,60px);line-height:1.15;
+  animation:fade 1.6s both}
+#intro p{font-style:italic;max-width:21em;opacity:.85;animation:fade 1.6s .5s both}
+@keyframes fade{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+
+/* --- Envelope (built from simple shapes) --- */
+.env{position:relative;width:min(76vw,310px);aspect-ratio:4/3;margin:8px 0 12px;perspective:900px;
+  animation:fade 1.6s .2s both}
+.env>*{position:absolute;left:0;width:100%}
+.env .back{inset:0;background:color-mix(in srgb,var(--sage) 70%,var(--green));border-radius:4px;
+  box-shadow:0 14px 30px -12px rgba(30,40,30,.45)}
+.env .card{left:6%;width:88%;top:6%;height:84%;background:var(--cream);border-radius:3px;z-index:1;
+  transition:transform 1s .7s ease;padding:16px;display:flex;align-items:center;justify-content:center;
+  font-family:var(--script);font-size:26px;color:var(--gold)}
+.env .front{inset:0;height:100%;z-index:2;border-radius:4px;
+  background:linear-gradient(160deg,color-mix(in srgb,var(--sage) 85%,var(--cream)),var(--sage));
+  clip-path:polygon(0 0,50% 52%,100% 0,100% 100%,0 100%)}
+.env .flap{top:0;height:58%;z-index:3;transform-origin:top;
+  background:color-mix(in srgb,var(--sage) 60%,var(--green));
+  clip-path:polygon(0 0,100% 0,50% 100%);transition:transform .8s ease,z-index 0s .4s}
+.env .seal{left:50%;top:52%;width:34px;height:34px;margin:-17px 0 0 -17px;border-radius:50%;z-index:4;
+  background:var(--gold);color:var(--cream);display:grid;place-items:center;font-size:16px;
+  box-shadow:0 2px 6px rgba(0,0,0,.25);transition:opacity .3s}
+.opening .flap{transform:rotateX(180deg);z-index:0}
+.opening .seal{opacity:0}
+.opening .card{transform:translateY(-38%)}
+
+/* --- Buttons --- */
+.btn{background:transparent;color:var(--green);border:1px solid var(--gold);border-radius:40px;
+  padding:12px 30px;font-size:19px;letter-spacing:.03em;transition:background .3s,color .3s}
+.btn:hover,.btn:active{background:var(--green);color:var(--cream)}
+
+/* --- The letter --- */
+#letter{position:relative;z-index:1;padding:28px 16px 60px;animation:fade 1.4s both}
+.paper{max-width:560px;margin:0 auto;padding:44px 28px 40px;background:var(--cream);text-align:center;
+  border:1px solid color-mix(in srgb,var(--gold) 45%,transparent);border-radius:3px;
+  box-shadow:0 20px 45px -25px rgba(40,50,40,.5),inset 0 0 0 7px var(--cream),
+  inset 0 0 0 8px color-mix(in srgb,var(--gold) 35%,transparent)}
+.orn{color:var(--gold);font-size:26px;margin-bottom:6px}
+.poemtitle{font-family:var(--script);font-weight:400;font-size:clamp(30px,8vw,40px);line-height:1.2;margin-bottom:26px}
+.dear{font-family:var(--script);font-size:28px;color:var(--gold);margin-bottom:22px}
+.stanza{margin-bottom:30px;font-size:clamp(19px,5vw,22px)}
+.stanza span{display:block}
+.rev{opacity:0;transform:translateY(14px);transition:opacity 1.2s,transform 1.2s}
+.rev.in{opacity:1;transform:none}
+.divider{width:60px;height:1px;background:var(--gold);margin:6px auto 30px;opacity:.7}
+.final{margin-top:34px;padding-top:30px;border-top:1px solid color-mix(in srgb,var(--gold) 45%,transparent)}
+.final p{margin-bottom:16px}
+.final p:first-child{font-family:var(--script);font-size:34px;color:var(--gold);line-height:1.2}
+.sig{font-family:var(--script);font-size:26px;color:var(--gold);margin:28px 0 24px !important}
+
+/* --- Switch animations off --- */
+.no-anim *,.no-anim *::before{animation:none !important;transition:none !important}
+.no-anim .rev{opacity:1;transform:none}
+@media(prefers-reduced-motion:reduce){.rev{transition:none}}
+
+/* --- Editor panel (only visible when editMode is true) --- */
+#edbtn{position:fixed;right:14px;bottom:14px;z-index:20;width:48px;height:48px;border-radius:50%;
+  border:0;background:var(--green);color:var(--cream);font-size:22px;box-shadow:0 4px 14px rgba(0,0,0,.35)}
+#panel{position:fixed;left:0;right:0;bottom:0;z-index:19;max-height:58dvh;overflow:auto;display:none;
+  background:#fffdf7;color:#2a2a2a;font:16px/1.4 system-ui,sans-serif;padding:16px 16px 80px;
+  border-radius:18px 18px 0 0;box-shadow:0 -8px 30px rgba(0,0,0,.3)}
+#panel.open{display:block}
+#panel h3{font-size:17px;margin:4px 0 10px}
+#panel label{display:block;font-size:13px;margin:10px 0 3px;color:#555}
+#panel input[type=text],#panel textarea,#panel select{width:100%;padding:9px;font:inherit;
+  border:1px solid #ccc;border-radius:8px;background:#fff}
+#panel textarea{min-height:90px}
+#panel .row{display:flex;gap:10px;flex-wrap:wrap}
+#panel .row>div{flex:1 1 40%}
+#panel input[type=color]{width:100%;height:42px;border:1px solid #ccc;border-radius:8px;padding:2px}
+#panel .chk{display:flex;gap:8px;align-items:center;margin-top:10px;font-size:15px;color:#222}
+#panel button{margin:8px 8px 0 0;padding:11px 16px;border-radius:10px;border:0;background:#2f4a3a;color:#fff;font:inherit}
+#panel button.alt{background:#8a7440}
+#panel small{display:block;color:#777;margin-top:8px}
+</style>
+</head>
+
+<body data-stage="intro" class="">
+
+<!-- Screens are filled in by the code below. Do not put text here. -->
+<div id="specks" data-dynamic="" class=""></div>
+<section id="intro" data-dynamic="" class=""></section>
+<main id="letter" data-dynamic="" class=""></main>
+<div id="editor" data-dynamic="" class=""></div>
+
+<!-- ==========================================================
+     3. HOW IT WORKS (JavaScript). You never need to edit this.
+     ========================================================== -->
+<script id="app">
+const S = structuredClone(SETTINGS);          // S = the live settings
+const $ = s => document.querySelector(s);
+const esc = t => String(t).replace(/[&<>]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;'}[c]));
+let finalShown = false;
+
+/* Split text into blocks (blank line = new block) */
+const blocks = t => t.trim().split(/\n\s*\n/).filter(Boolean);
+
+/* Apply colours, fonts and animation switch */
+function applyTheme(){
+  const r = document.documentElement.style;
+  r.setProperty('--cream', S.cream); r.setProperty('--green', S.green);
+  r.setProperty('--sage', S.sage);   r.setProperty('--gold', S.gold);
+  r.setProperty('--serif', `'${S.serif}',Georgia,serif`);
+  r.setProperty('--script', `'${S.script}',cursive`);
+  document.body.classList.toggle('no-anim', !S.animations);
+  $('#specks').style.display = (S.particles && S.animations) ? '' : 'none';
+}
+
+/* Build the opening screen and the letter from the settings */
+function render(keep){
+  $('#intro').innerHTML = `
+    <h1>${esc(S.title)}</h1>
+    <div class="env"><div class="back"></div><div class="card">${esc(S.recipientName) || '♡'}</div>
+      <div class="front"></div><div class="flap"></div><div class="seal">♡</div></div>
+    <p>${esc(S.openingLine)}</p>
+    <button class="btn" data-act="open">${esc(S.openButton)}</button>`;
+
+  const stanzas = blocks(S.poem).map(b =>
+    `<p class="stanza rev">${b.split('\n').map(l => `<span>${esc(l)}</span>`).join('')}</p>`).join('');
+  const finals = blocks(S.finalMessage).map(p => `<p>${esc(p)}</p>`).join('');
+  $('#letter').innerHTML = `<article class="paper">
+    <div class="orn">❦</div>
+    <h2 class="poemtitle">${esc(S.poemTitle)}</h2>
+    ${S.recipientName ? `<p class="dear">Dear ${esc(S.recipientName)},</p>` : ''}
+    ${stanzas}
+    <div class="divider"></div>
+    <button class="btn" data-act="last" ${finalShown ? 'hidden' : ''}>${esc(S.lastButton)}</button>
+    <div class="final rev ${finalShown ? 'in' : ''}" id="final" ${finalShown ? '' : 'hidden'}>
+      ${finals}<p class="sig">${esc(S.signature)}</p>
+      <button class="btn" data-act="again">${esc(S.againButton)}</button></div>
+  </article>`;
+  applyTheme();
+  watchReveals(keep);
+}
+
+/* Fade each stanza in as you scroll */
+let io;
+function watchReveals(showAll){
+  if (io) io.disconnect();
+  io = new IntersectionObserver(es => es.forEach(e => {
+    if (e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); }
+  }), {threshold:.25});
+  document.querySelectorAll('.rev').forEach(el => showAll ? el.classList.add('in') : io.observe(el));
+}
+
+/* Floating specks (made once) */
+function makeSpecks(){
+  for (let i = 0; i < 16; i++){
+    const s = document.createElement('i'); s.className = 'speck';
+    const size = 2 + Math.random() * 4;
+    s.style.cssText = `left:${Math.random()*100}%;width:${size}px;height:${size}px;` +
+      `animation-duration:${14 + Math.random()*16}s;animation-delay:${-Math.random()*20}s`;
+    $('#specks').appendChild(s);
+  }
+}
+
+/* Buttons */
+document.addEventListener('click', e => {
+  const act = e.target.closest('[data-act]')?.dataset.act;
+  const t = S.animations ? 1 : 0;            // 0 = no waiting when animations are off
+  if (act === 'open'){
+    $('#intro').classList.add('opening');    // envelope opens
+    setTimeout(() => $('#intro').classList.add('leaving'), 1900*t);
+    setTimeout(() => { document.body.dataset.stage = 'letter'; scrollTo(0,0); watchReveals(!S.animations); }, 2700*t);
+  }
+  if (act === 'last'){
+    finalShown = true;
+    e.target.hidden = true;
+    const f = $('#final'); f.hidden = false;
+    requestAnimationFrame(() => { f.classList.add('in'); f.scrollIntoView({behavior:'smooth', block:'center'}); });
+  }
+  if (act === 'again'){
+    finalShown = false;
+    scrollTo({top:0, behavior:'smooth'});
+    setTimeout(() => render(false), S.animations ? 700 : 0);   // hide the end and replay the reveals
+  }
+});
+
+/* ==========================================================
+   THE VISUAL EDITOR (only if editMode is true)
+   ========================================================== */
+const TEXT_FIELDS = [
+  ['title','Title','text'],['openingLine','Opening message','area'],['openButton','Opening button','text'],
+  ['recipientName','His name or nickname (optional)','text'],['poemTitle','Poem heading','text'],
+  ['poem','Poem (empty line between stanzas)','area',14],['lastButton','"One last thing" button','text'],
+  ['finalMessage','Final message (empty line between parts)','area',6],['signature','Signature','text'],
+  ['againButton','"Read it again" button','text']];
+const COLORS = [['cream','Cream'],['green','Forest green'],['sage','Sage'],['gold','Gold']];
+const FONTS = ['Cormorant Garamond','EB Garamond','Lora','Playfair Display'];
+const SCRIPTS = ['Pinyon Script','Great Vibes','Dancing Script'];
+
+function buildEditor(){
+  const opt = (list,v) => list.map(f => `<option ${f===v?'selected':''}>${f}</option>`).join('');
+  $('#editor').innerHTML = `<button id="edbtn" aria-label="Edit">✎</button>
+  <div id="panel"><h3>Edit your gift (changes show instantly above)</h3>
+  ${TEXT_FIELDS.map(([k,l,ty,rows]) => `<label>${l}</label>` + (ty==='area'
+     ? `<textarea data-k="${k}" style="min-height:${(rows||3)*24}px">${esc(S[k])}</textarea>`
+     : `<input type="text" data-k="${k}" value="${esc(S[k])}">`)).join('')}
+  <h3 style="margin-top:20px">Colours</h3><div class="row">
+  ${COLORS.map(([k,l]) => `<div><label>${l}</label><input type="color" data-k="${k}" value="${S[k]}"></div>`).join('')}</div>
+  <h3 style="margin-top:20px">Fonts</h3><div class="row">
+  <div><label>Main font</label><select data-k="serif">${opt(FONTS,S.serif)}</select></div>
+  <div><label>Handwritten font</label><select data-k="script">${opt(SCRIPTS,S.script)}</select></div></div>
+  <label class="chk"><input type="checkbox" data-k="animations" ${S.animations?'checked':''}> Animations on</label>
+  <label class="chk"><input type="checkbox" data-k="particles" ${S.particles?'checked':''}> Floating specks on</label>
+  <h3 style="margin-top:20px">Save</h3>
+  <button data-save="send">Download copy to SEND</button>
+  <button class="alt" data-save="edit">Download copy to KEEP EDITING</button>
+  <small>Both files are named index.html. The "SEND" copy hides this editor.</small></div>`;
+
+  $('#edbtn').onclick = () => $('#panel').classList.toggle('open');
+  $('#panel').addEventListener('input', e => {       // live preview
+    const k = e.target.dataset.k; if (!k) return;
+    S[k] = e.target.type === 'checkbox' ? e.target.checked : e.target.value;
+    render(true);
+  });
+  $('#panel').addEventListener('click', e => {
+    if (e.target.dataset.save) download(e.target.dataset.save === 'edit');
+  });
+}
+
+/* Turn the current settings back into code, then download the whole page */
+const q = s => '`' + String(s).replace(/[\\`]/g,'\\$&').replace(/\$\{/g,'\\${') + '`';
+function settingsText(edit){
+  const L = (k,c) => `  ${k}: ${q(S[k])},${c||''}\n`;
+  return 'const SETTINGS = {\n  editMode: ' + edit + ',   // true = shows the ✎ editor button\n' +
+    '  // ---- WORDS ----\n' + ['title','openingLine','openButton','recipientName','poemTitle','poem','lastButton',
+    'finalMessage','signature','againButton'].map(k => L(k)).join('') +
+    '  // ---- COLOURS ----\n' + ['cream','green','sage','gold'].map(k => L(k)).join('') +
+    '  // ---- FONTS ----\n' + L('serif') + L('script') +
+    '  // ---- ANIMATIONS (true/false) ----\n  animations: ' + S.animations + ',\n  particles: ' + S.particles + '\n};\n';
+}
+function download(edit){
+  const c = document.documentElement.cloneNode(true);
+  c.querySelectorAll('[data-dynamic]').forEach(e => { e.innerHTML = ''; e.className = ''; e.removeAttribute('style'); });
+  c.removeAttribute('style'); c.querySelector('body').className = ''; c.querySelector('body').dataset.stage = 'intro';
+  c.querySelector('#settings').textContent = '\n' + settingsText(edit);
+  const blob = new Blob(['<!DOCTYPE html>\n' + c.outerHTML], {type:'text/html'});
+  const a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = 'index.html';
+  document.body.appendChild(a); a.click(); a.remove();
+}
+
+/* Start */
+makeSpecks();
+render(false);
+if (S.editMode) buildEditor();
+</script>
+
+
+</body></html>
